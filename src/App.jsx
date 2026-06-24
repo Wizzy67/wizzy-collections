@@ -64,6 +64,16 @@ const FEATURES = [
 // ─── SPLASH SCREEN ───────────────────────────────────────────────────────────
 function SplashScreen({ onEnter }) {
   const [exiting, setExiting] = useState(false);
+  const [vw, setVw] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const fn = () => setVw(window.innerWidth);
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
+  }, []);
+
+  const isMob = vw < 480;
+  const isTab = vw < 768;
 
   const handleEnter = () => {
     setExiting(true);
@@ -75,7 +85,8 @@ function SplashScreen({ onEnter }) {
       position:"fixed", inset:0, zIndex:9999,
       background:"#07070f",
       display:"flex", alignItems:"center", justifyContent:"center",
-      padding:24,
+      padding: isMob ? "16px" : "24px",
+      overflowY:"auto",
       animation: exiting ? "splashExit .7s cubic-bezier(.4,0,.2,1) forwards" : "splashEnter .6s ease forwards",
     }}>
       <style>{`
@@ -90,75 +101,82 @@ function SplashScreen({ onEnter }) {
         .splash-enter-btn {
           background: linear-gradient(135deg,#818cf8,#a78bfa);
           color:#fff; border:none; border-radius:14px;
-          padding:15px 40px; font-weight:800; font-size:15px;
+          padding:15px 24px; font-weight:800; font-size:15px;
           font-family:'Space Grotesk',sans-serif;
           cursor:pointer; letter-spacing:.04em;
-          transition:all .25s; width:100%; max-width:320px;
+          transition:all .25s; width:100%;
           box-shadow: 0 8px 32px #818cf840;
+          -webkit-tap-highlight-color: transparent;
         }
         .splash-enter-btn:hover { opacity:.88; transform:translateY(-2px); box-shadow:0 14px 40px #818cf855; }
-        .splash-enter-btn:active { transform:translateY(0); }
+        .splash-enter-btn:active { transform:translateY(0); opacity:.95; }
         .tag-chip {
           display:inline-flex; align-items:center; gap:6px;
           background:#ffffff07; border:1px solid #ffffff10;
-          border-radius:8px; padding:5px 11px;
-          font-family:'JetBrains Mono',monospace; font-size:11px; color:#6060a0;
+          border-radius:8px; padding:5px 10px;
+          font-family:'JetBrains Mono',monospace; font-size:10px; color:#6060a0;
+          white-space:nowrap;
         }
       `}</style>
 
       {/* Background grid */}
       <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px)", backgroundSize:"60px 60px", pointerEvents:"none" }} />
 
-      {/* Animated scanline */}
+      {/* Scanline */}
       <div style={{ position:"absolute", inset:0, overflow:"hidden", pointerEvents:"none" }}>
         <div style={{ position:"absolute", left:0, right:0, height:2, background:"linear-gradient(90deg,transparent,#818cf815,transparent)", animation:"scanline 5s linear infinite" }} />
       </div>
 
-      {/* Ambient orbs */}
-      <div style={{ position:"absolute", width:500, height:500, borderRadius:"50%", background:"radial-gradient(circle,#818cf810,transparent)", top:"10%", right:"5%", pointerEvents:"none", animation:"orbSpin 30s linear infinite" }} />
-      <div style={{ position:"absolute", width:360, height:360, borderRadius:"50%", background:"radial-gradient(circle,#f472b808,transparent)", bottom:"10%", left:"5%", pointerEvents:"none", animation:"orbSpin 22s linear infinite reverse" }} />
+      {/* Orbs — only on larger screens */}
+      {!isMob && <>
+        <div style={{ position:"absolute", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,#818cf810,transparent)", top:"5%", right:"0%", pointerEvents:"none", animation:"orbSpin 30s linear infinite" }} />
+        <div style={{ position:"absolute", width:300, height:300, borderRadius:"50%", background:"radial-gradient(circle,#f472b808,transparent)", bottom:"5%", left:"0%", pointerEvents:"none", animation:"orbSpin 22s linear infinite reverse" }} />
+      </>}
 
       {/* Card */}
       <div style={{
         position:"relative", zIndex:1,
         background:"#0c0c1c", border:"1px solid #1e1e38",
-        borderRadius:28, padding:"48px 40px",
-        maxWidth:500, width:"100%",
+        borderRadius: isMob ? 20 : 28,
+        padding: isMob ? "28px 20px 24px" : isTab ? "36px 28px" : "48px 40px",
+        maxWidth: isMob ? "100%" : 500,
+        width:"100%",
         boxShadow:"0 40px 80px rgba(0,0,0,.7), 0 0 0 1px #818cf815",
         animation:"cardIn .6s .2s cubic-bezier(.34,1.28,.64,1) both",
         textAlign:"center",
+        margin: isMob ? "auto" : 0,
       }}>
 
         {/* Logo */}
-        <div style={{ animation:"logoIn .5s .1s ease both", marginBottom:28 }}>
-          <div style={{ width:60, height:60, borderRadius:18, background:"linear-gradient(135deg,#818cf8,#a78bfa)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, margin:"0 auto 16px", boxShadow:"0 8px 28px #818cf850" }}>⚡</div>
-          <div style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize:22, letterSpacing:"-.5px" }}>
+        <div style={{ animation:"logoIn .5s .1s ease both", marginBottom: isMob ? 20 : 28 }}>
+          <div style={{ width: isMob ? 50:60, height: isMob ? 50:60, borderRadius: isMob ? 14:18, background:"linear-gradient(135deg,#818cf8,#a78bfa)", display:"flex", alignItems:"center", justifyContent:"center", fontSize: isMob ? 24:28, margin:"0 auto 14px", boxShadow:"0 8px 28px #818cf850" }}>⚡</div>
+          <div style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize: isMob ? 18:22, letterSpacing:"-.5px" }}>
             <span style={{ color:"#e4e4f8" }}>Wizzy </span>
             <span style={{ background:"linear-gradient(90deg,#818cf8,#f472b6)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Collections</span>
           </div>
         </div>
 
         {/* Demo badge */}
-        <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"#f59e0b15", border:"1px solid #f59e0b40", borderRadius:50, padding:"6px 16px", marginBottom:28 }}>
-          <span style={{ width:7, height:7, background:"#f59e0b", borderRadius:"50%", display:"inline-block", animation:"blink 1.6s infinite" }} />
-          <span style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:11, fontWeight:700, color:"#f59e0b", textTransform:"uppercase", letterSpacing:".08em" }}>Portfolio Demo</span>
+        <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"#f59e0b15", border:"1px solid #f59e0b40", borderRadius:50, padding:"6px 14px", marginBottom: isMob ? 18:28 }}>
+          <span style={{ width:7, height:7, background:"#f59e0b", borderRadius:"50%", display:"inline-block", flexShrink:0, animation:"blink 1.6s infinite" }} />
+          <span style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize: isMob ? 10:11, fontWeight:700, color:"#f59e0b", textTransform:"uppercase", letterSpacing:".08em" }}>Portfolio Demo</span>
         </div>
 
         {/* Heading */}
-        <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:26, fontWeight:800, color:"#e4e4f8", letterSpacing:"-1px", lineHeight:1.2, marginBottom:16 }}>
+        <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize: isMob ? 20 : isTab ? 23 : 26, fontWeight:800, color:"#e4e4f8", letterSpacing:"-1px", lineHeight:1.25, marginBottom:14 }}>
           This is a demo website
         </h1>
 
         {/* Body copy */}
-        <p style={{ color:"#6060a0", fontSize:14, lineHeight:1.85, marginBottom:12 }}>
+        <p style={{ color:"#6060a0", fontSize: isMob ? 13:14, lineHeight:1.8, marginBottom:10 }}>
           Wizzy Collections is a <strong style={{ color:"#a0a0c8", fontWeight:600 }}>front-end portfolio project</strong> built to demonstrate real-world React.js, responsive design, and UI/UX skills.
         </p>
-        <p style={{ color:"#6060a0", fontSize:14, lineHeight:1.85, marginBottom:32 }}>
+        <p style={{ color:"#6060a0", fontSize: isMob ? 13:14, lineHeight:1.8, marginBottom: isMob ? 22:30 }}>
           Some features — including checkout, payments, and account creation — are <strong style={{ color:"#a0a0c8", fontWeight:600 }}>not functional</strong> and exist for visual purposes only.
         </p>
 
         {/* Tech stack chips */}
-        <div style={{ display:"flex", flexWrap:"wrap", gap:8, justifyContent:"center", marginBottom:36 }}>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:6, justifyContent:"center", marginBottom: isMob ? 22:32 }}>
           {["React.js","Responsive CSS","Component Design","UI/UX","No Backend"].map(t => (
             <span key={t} className="tag-chip">{t}</span>
           ))}
@@ -170,8 +188,8 @@ function SplashScreen({ onEnter }) {
         </button>
 
         {/* Footer note */}
-        <p style={{ color:"#2e2e4a", fontSize:11, marginTop:20, lineHeight:1.7 }}>
-          Built by <span style={{ color:"#818cf8" }}>Duffy</span> · For CV & Portfolio use only
+        <p style={{ color:"#2e2e4a", fontSize: isMob ? 10:11, marginTop:16, lineHeight:1.7 }}>
+          Built by <span style={{ color:"#818cf8" }}>Ifeanyi Wisdom</span> · For CV &amp; Portfolio use only
         </p>
       </div>
     </div>
