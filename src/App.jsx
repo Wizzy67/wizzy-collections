@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 
-// ─── IMAGES ──────────────────────────────────────────────────────────────────
 const IMGS = {
   iphone:    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=700&q=90&fit=crop",
   samsung:   "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=700&q=90&fit=crop",
@@ -15,7 +14,7 @@ const IMGS = {
   promoBg:   "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=80&fit=crop",
 };
 
-// ─── DATA ─────────────────────────────────────────────────────────────────────
+
 const NAV_LINKS = ["Home","Phones","Tablets","Laptops","Deals","About"];
 
 const CATS = [
@@ -61,7 +60,7 @@ const FEATURES = [
   { icon:"🛡️", title:"2-Year Warranty", desc:"Extended guarantee on every product we sell."  },
 ];
 
-// ─── SPLASH SCREEN ───────────────────────────────────────────────────────────
+
 function SplashScreen({ onEnter }) {
   const [exiting, setExiting] = useState(false);
   const [vw, setVw] = useState(window.innerWidth);
@@ -119,21 +118,18 @@ function SplashScreen({ onEnter }) {
         }
       `}</style>
 
-      {/* Background grid */}
       <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px)", backgroundSize:"60px 60px", pointerEvents:"none" }} />
 
-      {/* Scanline */}
+      
       <div style={{ position:"absolute", inset:0, overflow:"hidden", pointerEvents:"none" }}>
         <div style={{ position:"absolute", left:0, right:0, height:2, background:"linear-gradient(90deg,transparent,#818cf815,transparent)", animation:"scanline 5s linear infinite" }} />
       </div>
 
-      {/* Orbs — only on larger screens */}
       {!isMob && <>
         <div style={{ position:"absolute", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,#818cf810,transparent)", top:"5%", right:"0%", pointerEvents:"none", animation:"orbSpin 30s linear infinite" }} />
         <div style={{ position:"absolute", width:300, height:300, borderRadius:"50%", background:"radial-gradient(circle,#f472b808,transparent)", bottom:"5%", left:"0%", pointerEvents:"none", animation:"orbSpin 22s linear infinite reverse" }} />
       </>}
 
-      {/* Card */}
       <div style={{
         position:"relative", zIndex:1,
         background:"#0c0c1c", border:"1px solid #1e1e38",
@@ -147,7 +143,7 @@ function SplashScreen({ onEnter }) {
         margin: isMob ? "auto" : 0,
       }}>
 
-        {/* Logo */}
+      
         <div style={{ animation:"logoIn .5s .1s ease both", marginBottom: isMob ? 20 : 28 }}>
           <div style={{ width: isMob ? 50:60, height: isMob ? 50:60, borderRadius: isMob ? 14:18, background:"linear-gradient(135deg,#818cf8,#a78bfa)", display:"flex", alignItems:"center", justifyContent:"center", fontSize: isMob ? 24:28, margin:"0 auto 14px", boxShadow:"0 8px 28px #818cf850" }}>⚡</div>
           <div style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize: isMob ? 18:22, letterSpacing:"-.5px" }}>
@@ -156,18 +152,17 @@ function SplashScreen({ onEnter }) {
           </div>
         </div>
 
-        {/* Demo badge */}
+        
         <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"#f59e0b15", border:"1px solid #f59e0b40", borderRadius:50, padding:"6px 14px", marginBottom: isMob ? 18:28 }}>
           <span style={{ width:7, height:7, background:"#f59e0b", borderRadius:"50%", display:"inline-block", flexShrink:0, animation:"blink 1.6s infinite" }} />
           <span style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize: isMob ? 10:11, fontWeight:700, color:"#f59e0b", textTransform:"uppercase", letterSpacing:".08em" }}>Portfolio Demo</span>
         </div>
 
-        {/* Heading */}
         <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize: isMob ? 20 : isTab ? 23 : 26, fontWeight:800, color:"#e4e4f8", letterSpacing:"-1px", lineHeight:1.25, marginBottom:14 }}>
           This is a demo website
         </h1>
 
-        {/* Body copy */}
+        
         <p style={{ color:"#6060a0", fontSize: isMob ? 13:14, lineHeight:1.8, marginBottom:10 }}>
           Wizzy Collections is a <strong style={{ color:"#a0a0c8", fontWeight:600 }}>front-end portfolio project</strong> built to demonstrate real-world React.js, responsive design, and UI/UX skills.
         </p>
@@ -175,19 +170,16 @@ function SplashScreen({ onEnter }) {
           Some features — including checkout, payments, and account creation — are <strong style={{ color:"#a0a0c8", fontWeight:600 }}>not functional</strong> and exist for visual purposes only.
         </p>
 
-        {/* Tech stack chips */}
+        
         <div style={{ display:"flex", flexWrap:"wrap", gap:6, justifyContent:"center", marginBottom: isMob ? 22:32 }}>
           {["React.js","Responsive CSS","Component Design","UI/UX","No Backend"].map(t => (
             <span key={t} className="tag-chip">{t}</span>
           ))}
         </div>
 
-        {/* CTA */}
         <button className="splash-enter-btn" onClick={handleEnter}>
           Enter the Demo →
         </button>
-
-        {/* Footer note */}
         <p style={{ color:"#2e2e4a", fontSize: isMob ? 10:11, marginTop:16, lineHeight:1.7 }}>
           Built by <span style={{ color:"#818cf8" }}>Ifeanyi Wisdom</span> · For CV &amp; Portfolio use only
         </p>
@@ -196,7 +188,6 @@ function SplashScreen({ onEnter }) {
   );
 }
 
-// ─── BREAKPOINT HOOK ─────────────────────────────────────────────────────────
 function useBreakpoint() {
   const getSize = () => {
     const w = window.innerWidth;
@@ -217,7 +208,6 @@ function useBreakpoint() {
   return { bp, isMobile, isTablet, isDesktop };
 }
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
 const Stars = ({ n, sz = 13 }) => (
   <span style={{ color:"#f59e0b", fontSize:sz, letterSpacing:1 }}>
     {"★".repeat(n)}{"☆".repeat(5-n)}
@@ -229,8 +219,6 @@ const Pill = ({ children, color="#818cf8" }) => (
     {children}
   </span>
 );
-
-// ─── PRODUCT CARD ─────────────────────────────────────────────────────────────
 function Card({ p, onAdd, onWish, wished, added, isMobile }) {
   const [hov, setHov] = useState(false);
   const [imgOk, setImgOk] = useState(true);
@@ -251,7 +239,6 @@ function Card({ p, onAdd, onWish, wished, added, isMobile }) {
         display:"flex", flexDirection:"column",
       }}
     >
-      {/* IMAGE */}
       <div style={{ position:"relative", height: isMobile ? 200 : 240, overflow:"hidden", background:"#080816", flexShrink:0 }}>
         {imgOk
           ? <img src={p.img} alt={p.name} onError={() => setImgOk(false)}
@@ -282,8 +269,6 @@ function Card({ p, onAdd, onWish, wished, added, isMobile }) {
           </span>
         )}
       </div>
-
-      {/* BODY */}
       <div style={{ padding: isMobile ? "16px 18px 18px" : "20px 22px 22px", flex:1, display:"flex", flexDirection:"column" }}>
         <div style={{ color:p.accent, fontSize:10, fontWeight:800, letterSpacing:".14em", textTransform:"uppercase", marginBottom:5, fontFamily:"'Space Grotesk',sans-serif" }}>{p.brand}</div>
         <h3 style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:700, fontSize: isMobile ? 15 : 17, color:"#e4e4f8", lineHeight:1.3, marginBottom:12 }}>{p.name}</h3>
@@ -322,7 +307,6 @@ function Card({ p, onAdd, onWish, wished, added, isMobile }) {
   );
 }
 
-// ─── HAMBURGER ICON ──────────────────────────────────────────────────────────
 const Hamburger = ({ open, onClick }) => (
   <button onClick={onClick} aria-label="Toggle menu" style={{ background:"#ffffff09", border:"1px solid #18182e", borderRadius:11, width:42, height:42, cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:5, padding:10, flexShrink:0 }}>
     {[0,1,2].map(i => (
@@ -336,7 +320,6 @@ const Hamburger = ({ open, onClick }) => (
   </button>
 );
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 function SiteApp() {
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
   const isSmallScreen = isMobile || isTablet;
@@ -366,7 +349,7 @@ function SiteApp() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // Lock body scroll when drawers open
+
   useEffect(() => {
     document.body.style.overflow = (drawerOpen || mobileMenu) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -400,7 +383,6 @@ function SiteApp() {
     ? allP.filter(p=>[p.name,p.brand].join(" ").toLowerCase().includes(search.toLowerCase()))
     : PRODUCTS[tab];
 
-  // Responsive helpers
   const px  = isMobile ? 20 : isTablet ? 32 : 40;   // horizontal padding
   const maxW = 1320;
   const sectionPy = isMobile ? 64 : 96;
@@ -408,7 +390,6 @@ function SiteApp() {
   return (
     <div style={{ fontFamily:"'Inter',sans-serif", background:"#07070f", minHeight:"100vh", color:"#e4e4f8", overflowX:"hidden" }}>
 
-      {/* ══ GLOBAL STYLES ══════════════════════════════════════════════════════ */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap');
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
@@ -463,7 +444,6 @@ function SiteApp() {
         .aSlideDown{ animation:slideDown .3s ease forwards; }
       `}</style>
 
-      {/* ══ TOAST ══════════════════════════════════════════════════════════════ */}
       {toast && (
         <div className="aToast" style={{
           position:"fixed", bottom: isMobile ? 80 : 28, right: isMobile ? 16 : 28,
@@ -479,7 +459,6 @@ function SiteApp() {
         </div>
       )}
 
-      {/* ══ NAVBAR ═════════════════════════════════════════════════════════════ */}
       <header style={{
         position:"fixed", top:0, left:0, right:0, zIndex:300,
         background: scrolled || mobileMenu ? "rgba(7,7,15,0.96)" : "transparent",
@@ -490,7 +469,6 @@ function SiteApp() {
       }}>
         <div style={{ maxWidth:maxW, margin:"0 auto", display:"flex", alignItems:"center", justifyContent:"space-between", height:64 }}>
 
-          {/* Logo */}
           <a href="#" style={{ display:"flex", alignItems:"center", gap:10, textDecoration:"none", flexShrink:0 }}>
             <div style={{ width:36,height:36,borderRadius:11,background:"linear-gradient(135deg,#818cf8,#a78bfa)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:"0 4px 16px #818cf840" }}>⚡</div>
             <span style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize: isMobile ? 16 : 18, letterSpacing:"-.6px" }}>
@@ -498,20 +476,15 @@ function SiteApp() {
               <span style={{ background:"linear-gradient(90deg,#818cf8,#f472b6)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Collections</span>
             </span>
           </a>
-
-          {/* Desktop nav */}
-          {isDesktop && (
+     {isDesktop && (
             <nav style={{ display:"flex", gap:2 }}>
               {NAV_LINKS.map((l,i) => (
                 <button key={l} className={`nlink${i===0?" active":""}`} style={{ padding:"7px 14px", fontSize:13.5, width:"auto" }}>{l}</button>
               ))}
             </nav>
           )}
-
-          {/* Right controls */}
           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
 
-            {/* Desktop search */}
             {isDesktop && (
               <div style={{ position:"relative" }}>
                 <span style={{ position:"absolute", left:12, top:"50%", transform:"translateY(-50%)", color:"#36364e", fontSize:13, pointerEvents:"none" }}>🔍</span>
@@ -519,12 +492,9 @@ function SiteApp() {
               </div>
             )}
 
-            {/* Mobile search toggle */}
             {isSmallScreen && (
               <button className="cbtn" onClick={() => setSearchOpen(o=>!o)} aria-label="Search" style={{ fontSize:16 }}>🔍</button>
             )}
-
-            {/* Cart */}
             <button className="cbtn" onClick={() => setDO(true)} aria-label="Cart">
               🛒
               {cartCount > 0 && (
@@ -532,12 +502,10 @@ function SiteApp() {
               )}
             </button>
 
-            {/* Hamburger (mobile/tablet) */}
             {isSmallScreen && <Hamburger open={mobileMenu} onClick={() => setMobileMenu(o=>!o)} />}
           </div>
         </div>
 
-        {/* Mobile search bar */}
         {isSmallScreen && searchOpen && (
           <div className="aSlideDown" style={{ padding:`10px ${px}px 14px`, borderTop:"1px solid #18182e" }}>
             <div style={{ position:"relative" }}>
@@ -547,7 +515,6 @@ function SiteApp() {
           </div>
         )}
 
-        {/* Mobile menu */}
         {isSmallScreen && mobileMenu && (
           <div className="aSlideDown" style={{ borderTop:"1px solid #18182e", padding:`8px ${px}px 20px` }}>
             {NAV_LINKS.map(l => (
@@ -562,7 +529,6 @@ function SiteApp() {
         )}
       </header>
 
-      {/* ══ CART DRAWER ════════════════════════════════════════════════════════ */}
       {drawerOpen && (
         <div style={{ position:"fixed",inset:0,zIndex:500 }} className="aFadeIn">
           <div onClick={() => setDO(false)} style={{ position:"absolute",inset:0,background:"rgba(0,0,0,.82)",backdropFilter:"blur(8px)" }} />
@@ -627,7 +593,6 @@ function SiteApp() {
         </div>
       )}
 
-      {/* ══ HERO ═══════════════════════════════════════════════════════════════ */}
       <section style={{ position:"relative", minHeight: isMobile ? "100svh" : "100vh", display:"flex", alignItems:"center", overflow:"hidden", paddingTop:64 }}>
         <div style={{ position:"absolute",inset:0 }}>
           <img src={IMGS.hero} alt="" style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 35%",opacity:.22 }} />
@@ -635,7 +600,7 @@ function SiteApp() {
           <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,transparent 60%,#07070f 100%)" }} />
         </div>
 
-        {/* Orbs — hidden on mobile to save paint */}
+       
         {!isMobile && <>
           <div style={{ position:"absolute",width:700,height:700,borderRadius:"50%",background:"radial-gradient(circle,#818cf812,transparent)",top:-200,right:-150,animation:"orb1 16s ease-in-out infinite",pointerEvents:"none" }} />
           <div style={{ position:"absolute",width:480,height:480,borderRadius:"50%",background:"radial-gradient(circle,#f472b60d,transparent)",bottom:-100,left:-80,animation:"orb2 20s ease-in-out infinite",pointerEvents:"none" }} />
@@ -672,7 +637,7 @@ function SiteApp() {
               <button className="gbtn" style={{ padding: isMobile ? "14px 28px":"16px 40px",fontSize: isMobile ? 14:15, flex: isMobile ? 1 : "none" }}>View Deals</button>
             </div>
 
-            {/* Stats — 2-col on mobile, 4-col on desktop */}
+            
             <div className="aFadeUp" style={{
               display:"grid",
               gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4,1fr)",
@@ -696,7 +661,6 @@ function SiteApp() {
         </div>
       </section>
 
-      {/* ══ TRUST BAR ══════════════════════════════════════════════════════════ */}
       <section style={{ borderTop:"1px solid #18182e",borderBottom:"1px solid #18182e",background:"#08081a" }}>
         <div style={{ maxWidth:maxW,margin:"0 auto",padding:`0 ${px}px` }}>
           <div style={{
@@ -721,7 +685,7 @@ function SiteApp() {
         </div>
       </section>
 
-      {/* ══ CATEGORIES ═════════════════════════════════════════════════════════ */}
+
       <section style={{ maxWidth:maxW,margin:"0 auto",padding:`${sectionPy}px ${px}px 0` }}>
         <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:28 }}>
           <div>
@@ -758,7 +722,6 @@ function SiteApp() {
         </div>
       </section>
 
-      {/* ══ PRODUCTS ═══════════════════════════════════════════════════════════ */}
       <section style={{ maxWidth:maxW,margin:"0 auto",padding:`0 ${px}px ${sectionPy}px` }}>
         <div style={{ display:"flex",justifyContent:"space-between",alignItems: isMobile ? "flex-start" : "flex-end",flexDirection: isMobile ? "column":"row",gap:16,marginBottom:36 }}>
           <div>
@@ -803,7 +766,7 @@ function SiteApp() {
         )}
       </section>
 
-      {/* ══ PROMO BANNER ═══════════════════════════════════════════════════════ */}
+
       <section style={{ maxWidth:maxW,margin:"0 auto",padding:`0 ${px}px ${sectionPy}px` }}>
         <div style={{ position:"relative",borderRadius: isMobile ? 20:28,overflow:"hidden" }}>
           <img src={IMGS.promoBg} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:.15 }} />
@@ -828,7 +791,7 @@ function SiteApp() {
         </div>
       </section>
 
-      {/* ══ TESTIMONIALS ═══════════════════════════════════════════════════════ */}
+ 
       <section style={{ maxWidth:maxW,margin:"0 auto",padding:`0 ${px}px ${sectionPy}px` }}>
         <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:36,flexWrap:"wrap",gap:12 }}>
           <div>
@@ -866,7 +829,7 @@ function SiteApp() {
         </div>
       </section>
 
-      {/* ══ FOOTER ═════════════════════════════════════════════════════════════ */}
+    
       <footer style={{ borderTop:"1px solid #18182e",background:"#04040e" }}>
         <div style={{
           maxWidth:maxW, margin:"0 auto", padding:`${isMobile?56:72}px ${px}px ${isMobile?48:56}px`,
@@ -874,7 +837,6 @@ function SiteApp() {
           gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : "2.2fr 1fr 1fr 1fr",
           gap: isMobile ? 40 : isTablet ? 40 : 52,
         }}>
-          {/* Brand */}
           <div>
             <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:18 }}>
               <div style={{ width:34,height:34,borderRadius:10,background:"linear-gradient(135deg,#818cf8,#a78bfa)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:17 }}>⚡</div>
@@ -900,7 +862,7 @@ function SiteApp() {
             <p style={{ color:"#2a2a40",fontSize:11,marginTop:10,lineHeight:1.6 }}>No spam. Unsubscribe any time.</p>
           </div>
 
-          {/* On tablet, merge 3 link cols into 1 side */}
+         
           {isTablet ? (
             <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:20 }}>
               {[
@@ -915,7 +877,7 @@ function SiteApp() {
               ))}
             </div>
           ) : isMobile ? (
-            /* On mobile, accordion-style 2-col grid */
+           
             <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:32 }}>
               {[
                 { h:"Shop",    ls:["Phones","Tablets","Laptops","New Arrivals"] },
@@ -928,7 +890,7 @@ function SiteApp() {
               ))}
             </div>
           ) : (
-            /* Desktop — 3 separate columns */
+           
             [
               { h:"Shop",    ls:["Phones","Tablets","Laptops","Accessories","New Arrivals","Deals"] },
               { h:"Company", ls:["About Us","Careers","Press Kit","Blog","Partners","Contact"] },
@@ -953,7 +915,7 @@ function SiteApp() {
         </div>
       </footer>
 
-      {/* ══ MOBILE BOTTOM NAV ══════════════════════════════════════════════════ */}
+
       {isMobile && (
         <nav style={{ position:"fixed",bottom:0,left:0,right:0,zIndex:200,background:"rgba(7,7,15,0.96)",backdropFilter:"blur(24px)",borderTop:"1px solid #18182e",display:"flex",alignItems:"stretch",height:60 }}>
           {[
@@ -979,7 +941,7 @@ function SiteApp() {
   );
 }
 
-// ─── ROOT WRAPPER ─────────────────────────────────────────────────────────────
+
 export default function WizzyCollections() {
   const [splashDone, setSplashDone] = useState(false);
   return splashDone
