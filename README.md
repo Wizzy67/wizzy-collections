@@ -2,7 +2,7 @@
 
 A modern, fully-responsive **e-commerce portfolio demo** built with React 19 and Vite. Showcasing UI/UX, component design, and front-end engineering skills — no backend required.
 
-🔗 **Live Demo:** _[Add your deployed URL here]_
+🔗 **Live Demo:** [wizzy-collections.vercel.app](https://wizzy-collections.vercel.app/)
 
 ---
 
